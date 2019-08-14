@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019-08-13 13:27:58.694.pas,C:\Users\Administrator\Documents\RAD Studio\Projects\Unit1.pas=D:\qampp\htdocs\project\ksea\cpp\RsaSaury_dll\test\delphi\Unit1.pas</Transaction>
+    <Transaction>2019-08-13 13:27:58.694.dfm,C:\Users\Administrator\Documents\RAD Studio\Projects\Unit1.dfm=D:\qampp\htdocs\project\ksea\cpp\RsaSaury_dll\test\delphi\Unit1.dfm</Transaction>
+    <Transaction>2019-08-13 13:28:00.720.dproj,C:\Users\Administrator\Documents\RAD Studio\Projects\Project1.dproj=D:\qampp\htdocs\project\ksea\cpp\RsaSaury_dll\test\delphi\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
