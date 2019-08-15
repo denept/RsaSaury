@@ -111,7 +111,7 @@ std::string rsa_pub_encrypt(const std::string& clearText, std::string& pubKey)
 	int len = RSA_size(rsa);
 	char* encryptedText = (char*)malloc(len + 1);
 	memset(encryptedText, 0, len + 1);
-
+	
 	// 加密函数  
 	int step = 245;    //加密长度限制
 	int olen = clearText.length();
@@ -126,11 +126,12 @@ std::string rsa_pub_encrypt(const std::string& clearText, std::string& pubKey)
 			strRet.append(temp_strRet);
 		}
 	}
-
+	
 	// 释放内存  
 	free(encryptedText);
 	BIO_free_all(keybio);
 	RSA_free(rsa);
+	
 	return strRet;
 }
 
@@ -151,7 +152,7 @@ std::string ReadFile(const char* pFileName)
 }
 
 
-extern "C" int _declspec(dllexport) RsaEncrypt(char* str, char*& outstr)//char* str
+extern "C" int _declspec(dllexport) RsaEncrypt(char* str, char*& outstr)// char* outstr， char*& outstr
 {
 	bool with_new_line = false;
 	std::string publicRsa;
@@ -160,8 +161,11 @@ extern "C" int _declspec(dllexport) RsaEncrypt(char* str, char*& outstr)//char* 
 	//char* result;
 	//std::string result;
 	int cc = 0;
-
-
+	std::ofstream fout;
+	fout.open("input.txt");
+	fout << str;
+	fout.close();
+	//std::string str_input = str;
 	std::string ret = "";
 	//ret = rsa_pub_encrypt("aasdddtyu中tyu", publicRsa);
 	ret = rsa_pub_encrypt(str, publicRsa);
@@ -171,21 +175,18 @@ extern "C" int _declspec(dllexport) RsaEncrypt(char* str, char*& outstr)//char* 
 	Base64Encode(ret, &base64_str);
 
 
-	std::ofstream fout;
+	//std::ofstream fout;
 	fout.open("test.txt");
 	fout << base64_str;
 	fout.close();
 
-	//strcpy(outstr, str_e_base64.c_str());
-
-	//strcpy(outstr, ppp.c_str());
-	strcpy(outstr, base64_str.c_str());
+	strcpy(outstr, base64_str.c_str());;
 	cc = 1;
 	return cc;
 }
 
 
-extern "C" int _declspec(dllexport) RsaDecrypt(char* str, char*& outstr)//char* str
+extern "C" int _declspec(dllexport) RsaDecrypt(char* str, char*& outstr)// C# char* outstr， c/c++、delphi char*& outstr
 {
 	bool with_new_line = false;
 	std::string privateRsa;
@@ -200,17 +201,23 @@ extern "C" int _declspec(dllexport) RsaDecrypt(char* str, char*& outstr)//char* 
 	Base64Decode(str_e_base64, &output_str);
 	std::string ret = rsa_pri_decrypt(output_str, privateRsa);
 
-	std::ofstream fout;
-	fout.open("de_test.txt");
-	fout << str_e_base64;
-	fout.close();
-
-	//strcpy(outstr, str_e_base64.c_str());
-
-	//strcpy(outstr, ppp.c_str());
 	strcpy(outstr, ret.c_str());
+	//strcpy(outstr, '\0');
+
+
+	/*std::ofstream fout;
+	fout.open("de_test.txt");
+	fout << outstr;
+	fout.close();*/
+
 	cc = 1;
 	return cc;
 }
 
+extern "C" int _declspec(dllexport) Test(char* str) // c# 
+{
+	str[0] = 'p';
+	int cc = 1;
+	return cc;
+}
 
